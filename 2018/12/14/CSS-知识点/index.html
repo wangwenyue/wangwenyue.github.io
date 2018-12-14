@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="CSS 部分px em rem 的区别 px 是像素，绝对单位 em 是相对长度单位，相对于当前对象内文本的字体尺寸。如果未对当前行内文本的字体尺寸进行设置，则相对于浏览器的默认字体尺寸。它会继承父级元素的字体大小，因此并不是一个固定的值。 rem 是CSS3新增的一个相对单位（root em，根em），使用rem为元素设定字体大小时，仍然是相对大小，但相对的只是HTML根元素。 总结：rem 最">
+<meta name="keywords" content="面试,css">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS 知识点">
+<meta property="og:url" content="http://yoursite.com/2018/12/14/CSS-知识点/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="CSS 部分px em rem 的区别 px 是像素，绝对单位 em 是相对长度单位，相对于当前对象内文本的字体尺寸。如果未对当前行内文本的字体尺寸进行设置，则相对于浏览器的默认字体尺寸。它会继承父级元素的字体大小，因此并不是一个固定的值。 rem 是CSS3新增的一个相对单位（root em，根em），使用rem为元素设定字体大小时，仍然是相对大小，但相对的只是HTML根元素。 总结：rem 最">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://raw.githubusercontent.com/wangwenyue/Pic-bed/master/relative_position.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wangwenyue/Pic-bed/master/fixed_position.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wangwenyue/Pic-bed/master/absolute_position_1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wangwenyue/Pic-bed/master/absolute_position_2.png">
+<meta property="og:updated_time" content="2018-12-14T02:47:08.031Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS 知识点">
+<meta name="twitter:description" content="CSS 部分px em rem 的区别 px 是像素，绝对单位 em 是相对长度单位，相对于当前对象内文本的字体尺寸。如果未对当前行内文本的字体尺寸进行设置，则相对于浏览器的默认字体尺寸。它会继承父级元素的字体大小，因此并不是一个固定的值。 rem 是CSS3新增的一个相对单位（root em，根em），使用rem为元素设定字体大小时，仍然是相对大小，但相对的只是HTML根元素。 总结：rem 最">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wangwenyue/Pic-bed/master/relative_position.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/14/CSS-知识点/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>CSS 知识点 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion .logo-line-before i { left: initial; }
+    .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/CSS-知识点/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kowal$ki">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CSS 知识点
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-14 10:44:49 / Modified: 10:47:08" itemprop="dateCreated datePublished" datetime="2018-12-14T10:44:49+08:00">2018-12-14</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="CSS-部分"><a href="#CSS-部分" class="headerlink" title="CSS 部分"></a>CSS 部分</h1><h2 id="px-em-rem-的区别"><a href="#px-em-rem-的区别" class="headerlink" title="px em rem 的区别"></a>px em rem 的区别</h2><ul>
+<li><code>px</code> 是像素，绝对单位</li>
+<li><code>em</code> 是相对长度单位，相对于当前对象内文本的字体尺寸。如果未对当前行内文本的字体尺寸进行设置，则相对于浏览器的默认字体尺寸。它会继承父级元素的字体大小，因此并不是一个固定的值。</li>
+<li><code>rem</code> 是CSS3新增的一个相对单位（root em，根em），使用rem为元素设定字体大小时，仍然是相对大小，但相对的只是HTML根元素。</li>
+<li>总结：<code>rem</code> 最优秀，通过它既可以做到只修改根元素字体大小就可以成比例的调整所有字体大小，又可以避免字体大小逐层复合的连锁反应。</li>
+</ul>
+<h2 id="水平居中"><a href="#水平居中" class="headerlink" title="水平居中"></a>水平居中</h2><ul>
+<li>children 宽度确定</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">children</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>flex 方法1：</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">parent</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">justity-content</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>flex 方法2：</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">parent</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: relative</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">children</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: absolute</span><br><span class="line">    left: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">trnasform</span>: <span class="built_in">translateX</span>(-50%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h2><ul>
+<li>单行文本居中，<code>line-height</code> 与 <code>div</code> 高度保持一样就行了。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">30px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">30px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>flex 方法</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">parent</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: relative</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">children</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: absolute</span><br><span class="line">    top: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">trnasform</span>: <span class="built_in">translateY</span>(-50%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="position"><a href="#position" class="headerlink" title="position"></a>position</h2><p><code>position</code> 用于网页元素的定位，可设置 <code>static</code>/<code>relative</code>/<code>absolute</code>/<code>fixed</code> 这些值，其中 <code>static</code> 是默认值，不用介绍。</p>
+<h3 id="定位上下文"><a href="#定位上下文" class="headerlink" title="定位上下文"></a>定位上下文</h3><p><code>relative</code> 元素的定位永远是相对于元素自身位置的，和其他元素没关系，也不会影响其他元素。</p>
+<p><img src="https://raw.githubusercontent.com/wangwenyue/Pic-bed/master/relative_position.png" alt="relative_position.png"></p>
+<p><code>fixed</code> 元素的定位是相对于 <code>window</code> （或者 <code>iframe</code>）边界的，和其他元素没有关系。但是它具有破坏性，会导致其他元素位置的变化。</p>
+<p><img src="https://raw.githubusercontent.com/wangwenyue/Pic-bed/master/fixed_position.png" alt="fixed_position.png"></p>
+<p><code>absolute</code> 的定位相对于前两者要复杂许多。如果为 <code>absolute</code> 设置了 <code>top</code>、<code>left</code>，浏览器会根据什么去确定它的纵向和横向的偏移量呢？答案是浏览器会递归查找该元素的所有父元素，如果找到一个设置了 <code>position</code>: <code>relative</code> / <code>absolute</code> / <code>fixed</code> 的元素，就以该元素为基准定位，如果没找到，就以浏览器边界定位。如下两个图所示：</p>
+<p><img src="https://raw.githubusercontent.com/wangwenyue/Pic-bed/master/absolute_position_1.png" alt="absolute_position_1.png"></p>
+<p><img src="https://raw.githubusercontent.com/wangwenyue/Pic-bed/master/absolute_position_2.png" alt="absolute_position_2.png"></p>
+<h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><ul>
+<li>两栏布局</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"float:left; width:200px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"margin-left: 200px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>三栏布局</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"float:left; width:200px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"float:right; width:200px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"margin-left: 200px; margin-right: 200px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>flex 布局</li>
+</ul>
+<p><a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="float-相关"><a href="#float-相关" class="headerlink" title="float 相关"></a>float 相关</h2><ul>
+<li><code>float</code> 定义：指定一个元素应沿其容器的左侧或右侧放置，允许文本和内联元素环绕它。该元素从网页的正常流动中移除，但仍然保持部分的流动性（与 <code>absolute</code> 相反）。</li>
+</ul>
+<h3 id="清除浮动方法："><a href="#清除浮动方法：" class="headerlink" title="清除浮动方法："></a>清除浮动方法：</h3><p><a href="https://github.com/wangwenyue/CSS-me/blob/master/example/%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8.html" target="_blank" rel="noopener">详见</a></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="margin-合并"><a href="#margin-合并" class="headerlink" title="margin 合并"></a>margin 合并</h2><ul>
+<li>相邻的两个块级元素，间距是两者 <code>margin</code> 的最大值。</li>
+<li>父子两个块级元素： 若第一个子元素的 <code>top</code> 上没有 <code>border</code> 或者 <code>padding</code> ,上方没有 <code>inlineBlock</code> 清除浮动的话，那么父子两元素的 <code>margin</code> 将合并，取两者的最大值。</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+            <a href="/tags/css/" rel="tag"># css</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/14/React-知识点/" rel="next" title="React 知识点">
+                <i class="fa fa-chevron-left"></i> React 知识点
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/14/HTML5-知识点/" rel="prev" title="HTML5 知识点">
+                HTML5 知识点 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kowal$ki</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS-部分"><span class="nav-number">1.</span> <span class="nav-text">CSS 部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#px-em-rem-的区别"><span class="nav-number">1.1.</span> <span class="nav-text">px em rem 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#水平居中"><span class="nav-number">1.2.</span> <span class="nav-text">水平居中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垂直居中"><span class="nav-number">1.3.</span> <span class="nav-text">垂直居中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#position"><span class="nav-number">1.4.</span> <span class="nav-text">position</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定位上下文"><span class="nav-number">1.4.1.</span> <span class="nav-text">定位上下文</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#布局"><span class="nav-number">1.5.</span> <span class="nav-text">布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#float-相关"><span class="nav-number">1.6.</span> <span class="nav-text">float 相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#清除浮动方法："><span class="nav-number">1.6.1.</span> <span class="nav-text">清除浮动方法：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#margin-合并"><span class="nav-number">1.7.</span> <span class="nav-text">margin 合并</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kowal$ki</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v6.6.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.6.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.6.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

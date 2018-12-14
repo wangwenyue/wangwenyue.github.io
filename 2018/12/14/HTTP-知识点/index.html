@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="HTTPHTTP 请求方法 GET 获取 POST 提交 PUT 替换取代 DELETE 删除 OPTIONS 预检请求 检查是否符合post等请求的条件  常见状态码 1xx 代表请求已被接受，需要继续处理 100 Continue 已接收到请求头 101 服务器已理解，但需要切换协议 102 Processing 服务器已经收到并在处理，但暂无相应可用   2xx 请求成功，服务器接收、理解、">
+<meta name="keywords" content="面试,http">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP 知识点">
+<meta property="og:url" content="http://yoursite.com/2018/12/14/HTTP-知识点/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="HTTPHTTP 请求方法 GET 获取 POST 提交 PUT 替换取代 DELETE 删除 OPTIONS 预检请求 检查是否符合post等请求的条件  常见状态码 1xx 代表请求已被接受，需要继续处理 100 Continue 已接收到请求头 101 服务器已理解，但需要切换协议 102 Processing 服务器已经收到并在处理，但暂无相应可用   2xx 请求成功，服务器接收、理解、">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-14T02:44:26.133Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTP 知识点">
+<meta name="twitter:description" content="HTTPHTTP 请求方法 GET 获取 POST 提交 PUT 替换取代 DELETE 删除 OPTIONS 预检请求 检查是否符合post等请求的条件  常见状态码 1xx 代表请求已被接受，需要继续处理 100 Continue 已接收到请求头 101 服务器已理解，但需要切换协议 102 Processing 服务器已经收到并在处理，但暂无相应可用   2xx 请求成功，服务器接收、理解、">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/14/HTTP-知识点/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>HTTP 知识点 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion .logo-line-before i { left: initial; }
+    .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/HTTP-知识点/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kowal$ki">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HTTP 知识点
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-14 10:43:33 / Modified: 10:44:26" itemprop="dateCreated datePublished" datetime="2018-12-14T10:43:33+08:00">2018-12-14</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><h2 id="HTTP-请求方法"><a href="#HTTP-请求方法" class="headerlink" title="HTTP 请求方法"></a>HTTP 请求方法</h2><ul>
+<li>GET 获取</li>
+<li>POST 提交</li>
+<li>PUT 替换取代</li>
+<li>DELETE 删除</li>
+<li>OPTIONS 预检请求 检查是否符合post等请求的条件</li>
+</ul>
+<h2 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h2><ul>
+<li>1xx 代表请求已被接受，需要继续处理<ul>
+<li>100 Continue 已接收到请求头</li>
+<li>101 服务器已理解，但需要切换协议</li>
+<li>102 Processing 服务器已经收到并在处理，但暂无相应可用</li>
+</ul>
+</li>
+<li>2xx 请求成功，服务器接收、理解、并接受<ul>
+<li><strong>200 OK 请求已成功</strong></li>
+<li>202 Accepted 服务器已接收，但尚未处理，也可能不会执行</li>
+<li>204 No Content 成功处理，但是没有任何返回内容</li>
+</ul>
+</li>
+<li>3xx 重定向<ul>
+<li><strong>301 被请求的资源已经永久移动到新位置</strong></li>
+<li><strong>302 Found 要求客户端执行临时重定向</strong></li>
+<li>304 表示资源未被修改，不重新传输</li>
+<li>305 需要使用代理才可以访问</li>
+</ul>
+</li>
+<li>4xx 客户端错误<ul>
+<li>400 错误请求，服务器不能或者不会处理</li>
+<li>401 未认证，用户没有必要的凭据</li>
+<li><strong>403 访问被拒绝</strong></li>
+<li><strong>404 请求失败，资源未在服务器上发现</strong></li>
+<li>405 请求方法不能用于获取请求的资源</li>
+<li>408 请求超时</li>
+</ul>
+</li>
+<li>5xx 服务器错误<ul>
+<li>500 通用错误，但是没有错误信息</li>
+<li>501 服务器不支持</li>
+<li><strong>502 Bad Gateway 网关或者代理的服务器执行请求时，从上游服务器接收到无效的响应</strong></li>
+<li><strong>504 Gateway Timeout 网关超时</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="头部常见字段"><a href="#头部常见字段" class="headerlink" title="头部常见字段"></a>头部常见字段</h2><ul>
+<li>Accept 期望的 MIME 类型列表</li>
+<li>Accept-Charset 期望的字符集</li>
+<li>Accept-Encoding 支持的压缩方法</li>
+<li>Connection</li>
+<li><strong>Content-Length 请求长度</strong></li>
+<li><strong>Content-Type 内容类型</strong></li>
+<li><strong>Host 服务器</strong></li>
+<li>Origin 访问的地址</li>
+<li>Referer 来自</li>
+<li>User-Agent</li>
+<li>Accept-Language 期望的页面语言</li>
+<li><strong>Request Method 请求方法</strong></li>
+</ul>
+<h1 id="跨域（jsonp-postMessage-cors-用服务器-比如-node-转发请求和响应）"><a href="#跨域（jsonp-postMessage-cors-用服务器-比如-node-转发请求和响应）" class="headerlink" title="跨域（jsonp, postMessage, cors, 用服务器(比如 node)转发请求和响应）"></a>跨域（jsonp, postMessage, cors, 用服务器(比如 node)转发请求和响应）</h1><h2 id="跨域有哪些常见的解决方式"><a href="#跨域有哪些常见的解决方式" class="headerlink" title="跨域有哪些常见的解决方式"></a>跨域有哪些常见的解决方式</h2><ul>
+<li><code>cors</code> 设置被跨域服务器，可以接受来自 a.com 的请求（其实是允许某个地址可以访问）</li>
+<li><code>jsonp</code> ，用 script src 去引用，获取信息</li>
+<li>架设 <code>node</code> 本地转发请求，或者请求后端转发请求 （这个不是很了解）</li>
+</ul>
+<h2 id="XSS-跨网站指令码-Cross-site-scripting"><a href="#XSS-跨网站指令码-Cross-site-scripting" class="headerlink" title="XSS  跨网站指令码 Cross-site scripting"></a><code>XSS</code>  跨网站指令码 <code>Cross-site scripting</code></h2><p><code>XSS</code> 通过修改 <code>HTML</code> 节点或者执行 <code>JavaScript</code> 代码来攻击网站。</p>
+<p>如何防御?</p>
+<p>最普遍的做法是</p>
+<ul>
+<li>转义输入输出的内容，对于引号，尖括号，斜杠进行转义</li>
+<li>白名单的方式。</li>
+</ul>
+<h2 id="CSRF-跨站请求伪造-Cross-site-request-forgery"><a href="#CSRF-跨站请求伪造-Cross-site-request-forgery" class="headerlink" title="CSRF 跨站请求伪造  Cross-site request forgery"></a><code>CSRF</code> 跨站请求伪造  <code>Cross-site request forgery</code></h2><p>利用用户的登录态发起恶意请求。</p>
+<p>防范 <code>CSRF</code> 可以遵循以下几种规则：</p>
+<ul>
+<li><code>Get</code> 请求不对数据进行修改</li>
+<li>不让第三方网站访问到用户 <code>Cookie</code></li>
+<li>阻止第三方网站请求接口</li>
+<li>请求时附带验证信息，比如验证码或者 <code>token</code></li>
+</ul>
+<p><code>xss</code> 和 <code>xsrf</code> 的原理是什么<br><code>xss</code> 是 <code>html</code> 注入，用户在输入的地方插入 <code>script</code> 元素,浏览器会识别为 <code>JavaScript</code> 代码，如果这个代码有访问外部服务器，就是 <code>xss</code> 攻击<br>防治措施是 不信任用户的输入，将 &lt; &gt; 转译为 &lt; &rt; 来处理内容<br>csrf 是跨站攻击，拿到了用户的信息之后，伪造用户请求去访问接口</p>
+<h2 id="window-name"><a href="#window-name" class="headerlink" title="window.name"></a>window.name</h2><p>在客户端浏览器中每个页面都有一个独立的窗口对象 <code>window</code>，默认情况下<code>window.name</code>为空，在窗口的生命周期中，载入的所有页面共享一个 <code>window.name</code> 并且每个页面都有对此读写的权限，<code>window.name</code> 会一直存在当前窗口，但存储的<code>字符串</code>不超过<code>2M</code>。</p>
+<p>例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">window</span>.name</span><br><span class="line"><span class="string">""</span></span><br><span class="line"></span><br><span class="line">&gt; <span class="built_in">window</span>.name=<span class="string">'test'</span>;</span><br><span class="line"><span class="string">"test"</span></span><br><span class="line"></span><br><span class="line">&gt; location.href=<span class="string">'http://www.google.com'</span>;</span><br><span class="line"><span class="string">"http://www.google.com"</span></span><br><span class="line">Navigated to https:<span class="comment">//www.google.com/</span></span><br><span class="line"></span><br><span class="line">&gt; <span class="built_in">window</span>.name</span><br><span class="line"><span class="string">"test"</span></span><br></pre></td></tr></table></figure>
+<h2 id="网址组成（四部分）"><a href="#网址组成（四部分）" class="headerlink" title="网址组成（四部分）"></a>网址组成（四部分）</h2><ul>
+<li>协议     <code>http</code>, <code>https</code>（<code>https</code> 是加密的 <code>http</code>）</li>
+<li>主机     <code>g.cn</code>  <code>zhihu.com</code>之类的网址</li>
+<li>端口     <code>HTTP</code> 协议默认是 80，因此一般不用填写</li>
+<li>路径     下面的「/」和「/question/31838184」都是路径</li>
+</ul>
+<p><code>http://www.zhihu.com/</code></p>
+<p><code>http://www.zhihu.com/question/31838184</code></p>
+<h2 id="端口是什么？"><a href="#端口是什么？" class="headerlink" title="端口是什么？"></a>端口是什么？</h2><p>一个比喻：<br>用邮局互相写信的时候，ip相当于地址（也可以看做邮编，地址是域名）<br>端口是收信人姓名（因为一个地址比如公司、家只有一个地址，但是却可能有很多收信人）<br>端口就是一个标记收信人的数字。<br>端口是一个 16 位(二进制的 位)的数字，所以范围是 0-65535（2**16）</p>
+<h2 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h2><p>一个传输协议，协议就是双方都遵守的规范。<br>为什么叫超文本传输协议呢，因为收发的是文本信息。</p>
+<ul>
+<li>浏览器（客户端）按照规定的格式发送文本数据（请求）到服务器</li>
+<li>服务器解析请求，按照规定的格式返回文本数据（响应）到浏览器</li>
+<li>浏览器解析得到的数据，并做相应处理</li>
+</ul>
+<p>请求和返回是一样的数据格式，分为4部分：</p>
+<ul>
+<li>请求行或者响应行</li>
+<li>Header（请求的 Header 中 Host 字段是必须的，其他都是可选）</li>
+<li>\r\n\r\n（连续两个换行回车符，用来分隔Header和Body）</li>
+<li>Body（可选）</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GET / HTTP/1.1</span><br><span class="line">Host: g.cn</span><br><span class="line"></span><br><span class="line">Body</span><br></pre></td></tr></table></figure>
+<p>请求的格式，注意大小写（这是一个不包含Body的请求）：<br>原始数据如下</p>
+<p><code>&#39;GET / HTTP/1.1\r\nhost:g.cn\r\n\r\n&#39;</code></p>
+<p>打印出来如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET / HTTP/1.1</span><br><span class="line">Host: g.cn</span><br></pre></td></tr></table></figure>
+<p><code>&#39;GET / HTTP/1.1\r\nhost: www.qq.com\r\n\r\n&#39;</code></p>
+<p>其中</p>
+<ul>
+<li>GET 是请求方法（还有POST等，这就是个标志字符串而已）</li>
+<li>/ 是请求的路径（这代表根路径）</li>
+<li>HTTP/1.1  中，1.1是版本号，通用了20年</li>
+</ul>
+<p>具体字符串是 <code>&#39;GET / HTTP/1.1\r\nhost:g.cn\r\n\r\n&#39;</code><br>返回的数据如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 301 Moved Permanently</span><br><span class="line">Alternate-Protocol: 80:quic,p=0,80:quic,p=0</span><br><span class="line">Cache-Control: private, max-age=2592000</span><br><span class="line">Content-Length: 218</span><br><span class="line">Content-Type: text/html; charset=UTF-8</span><br><span class="line">Date: Tue, 07 Jul 2015 02:57:59 GMT</span><br><span class="line">Expires: Tue, 07 Jul 2015 02:57:59 GMT</span><br><span class="line">Location: http://www.google.cn/</span><br><span class="line">Server: gws</span><br><span class="line">X-Frame-Options: SAMEORIGIN</span><br><span class="line">X-XSS-Protection: 1; mode=block</span><br></pre></td></tr></table></figure>
+<p>Body部分略过<br>其中响应行（第一行）：</p>
+<ul>
+<li>HTTP/1.1 是版本</li>
+<li>301 是「状态码」，参见文末链接</li>
+<li>Moved Permanently 是状态码的描述</li>
+</ul>
+<p>浏览器会自己解析Header部分，然后将Body显示成网页</p>
+<h2 id="从输入-URL-到页面加载完成的过程"><a href="#从输入-URL-到页面加载完成的过程" class="headerlink" title="从输入 URL 到页面加载完成的过程"></a>从输入 <code>URL</code> 到页面加载完成的过程</h2><p><a href="https://juejin.im/post/5bf3ad55f265da61682afc9b" target="_blank" rel="noopener">参考链接</a></p>
+<p>总体来说分为以下几个过程:</p>
+<ol>
+<li>DNS 解析:将域名解析成 IP 地址</li>
+<li>TCP 连接：TCP 三次握手</li>
+<li>发送 HTTP 请求</li>
+<li>服务器处理请求并返回 HTTP 报文</li>
+<li>浏览器解析渲染页面</li>
+<li>断开连接：TCP 四次挥手</li>
+</ol>
+<h2 id="Ajax-过程："><a href="#Ajax-过程：" class="headerlink" title="Ajax 过程："></a>Ajax 过程：</h2><p>Ajax: 浏览器提供的使用 <code>HTTP</code> 协议收发数据的接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">0 1 2 3 4 各代表什么含义</span><br><span class="line"></span><br><span class="line">0 代理被创建，但并未 open()</span><br><span class="line">1 已经调用 open()</span><br><span class="line">2 已经调用 send() 并且头部和状态已经获得了</span><br><span class="line">3 正在下载</span><br><span class="line">4 下载完成</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ajax = <span class="function">(<span class="params">method, path, data, responseCallback</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 发送登录数据</span></span><br><span class="line">    <span class="keyword">let</span> r = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">    <span class="comment">// 设置请求方法和请求地址</span></span><br><span class="line">    r.open(method, path, <span class="literal">true</span>)</span><br><span class="line">    <span class="comment">// 设置发送的数据的格式</span></span><br><span class="line">    r.setRequestHeader(<span class="string">'Content-Type'</span>, <span class="string">'application/json'</span>)</span><br><span class="line">    <span class="comment">// 注册响应函数</span></span><br><span class="line">    r.onreadystatechange = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(r.readyState == <span class="number">4</span>) &#123;</span><br><span class="line">            <span class="keyword">const</span> response = <span class="built_in">JSON</span>.parse(r.response)</span><br><span class="line">            responseCallback(response)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    r.send(data)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="事件冒泡-事件委托"><a href="#事件冒泡-事件委托" class="headerlink" title="事件冒泡, 事件委托"></a>事件冒泡, 事件委托</h2><p>事件触发有三个阶段</p>
+<ul>
+<li><code>window</code> 往事件触发处传播，遇到注册的捕获事件会触发</li>
+<li>传播到事件触发处时触发注册的事件</li>
+<li>从事件触发处往 <code>window</code> 传播，遇到注册的冒泡事件会触发</li>
+</ul>
+<p>事件触发一般来说会按照上面的顺序进行，但是也有特例，如果给一个目标节点同时注册冒泡和捕获事件，事件触发会按照注册的顺序执行。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下会先打印冒泡然后是捕获</span></span><br><span class="line">node.addEventListener(<span class="string">'click'</span>, event =&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'冒泡'</span>)</span><br><span class="line">&#125;, <span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line">node.addEventListener(<span class="string">'click'</span>, event =&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'捕获 '</span>)</span><br><span class="line">&#125;, <span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+<p>一般来说，我们只希望事件只触发在目标上，这时候可以使用 <code>stopPropagation</code> 来阻止事件的进一步传播。通常我们认为 <code>stopPropagation</code> 是用来阻止事件冒泡的，其实该函数也可以阻止捕获事件。<code>stopImmediatePropagation</code> 同样也能实现阻止事件，但是还能阻止该事件目标执行别的注册事件。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">node.addEventListener(<span class="string">'click'</span>, event =&gt;&#123;</span><br><span class="line">    event.stopImmediatePropagation()</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'冒泡'</span>)</span><br><span class="line">&#125;, <span class="literal">false</span>)</span><br><span class="line"><span class="comment">// 点击 node 只会执行上面的函数，该函数不会执行</span></span><br><span class="line">node.addEventListener(<span class="string">'click'</span>, event =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'捕获 '</span>)</span><br><span class="line">&#125;, <span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h2><p>如果一个节点中的子节点是动态生成的，那么子节点需要注册事件的话应该注册在父节点上</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"ul"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>4<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>5<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> ul = <span class="built_in">document</span>.querySelector(<span class="string">'##ul'</span>)</span></span><br><span class="line"><span class="javascript">    ul.addEventListener(<span class="string">'click'</span>, event =&gt; &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.target)</span></span><br><span class="line"><span class="undefined">    &#125;)</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果一个节点中的子节点是动态生成的，那么子节点需要注册事件的话应该注册在父节点上。</p>
+<p>事件代理的方式相对于直接给目标注册事件来说，有以下优点:</p>
+<ul>
+<li>节省内存</li>
+<li>不需要给子节点注销事件</li>
+</ul>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><h3 id="优化原则和方向"><a href="#优化原则和方向" class="headerlink" title="优化原则和方向"></a>优化原则和方向</h3><p>性能优化的原则是以更好的用户体验为标准，具体就是实现下面的目标：</p>
+<ol>
+<li>多使用内存、缓存或者其他方法</li>
+<li>减少 <code>CPU</code> 和 <code>GPU</code> 计算，更快展现</li>
+</ol>
+<p>优化的方向有两个：</p>
+<ul>
+<li>减少页面体积，提升网络加载</li>
+<li>优化页面渲染</li>
+</ul>
+<h3 id="减少页面体积，提升网络加载"><a href="#减少页面体积，提升网络加载" class="headerlink" title="减少页面体积，提升网络加载"></a>减少页面体积，提升网络加载</h3><ul>
+<li>静态资源的压缩合并（<code>JS</code> 代码压缩合并、<code>CSS</code> 代码压缩合并、雪碧图）</li>
+<li>静态资源缓存（资源名称加 MD5 戳）</li>
+<li>使用 <code>CDN</code> 让资源加载更快</li>
+</ul>
+<h3 id="优化页面渲染"><a href="#优化页面渲染" class="headerlink" title="优化页面渲染"></a>优化页面渲染</h3><ul>
+<li><code>CSS</code> 放前面，<code>JS</code> 放后面</li>
+<li>懒加载（图片懒加载、下拉加载更多）</li>
+<li>减少 <code>DOM</code> 查询，对 <code>DOM</code> 查询做缓存</li>
+<li>减少 <code>DOM</code> 操作，多个操作尽量合并在一起执行（DocumentFragment）</li>
+<li>事件节流</li>
+<li>尽早执行操作（DOMContentLoaded）</li>
+<li>使用 <code>SSR</code> 后端渲染，数据直接输出到 <code>HTML</code> 中，减少浏览器使用 <code>JS</code> 模板渲染页面 <code>HTML</code> 的时间</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+            <a href="/tags/http/" rel="tag"># http</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/14/JavaScript-知识点/" rel="next" title="JavaScript 知识点">
+                <i class="fa fa-chevron-left"></i> JavaScript 知识点
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/14/Throttle_debounce/" rel="prev" title="“节流”与“防抖”">
+                “节流”与“防抖” <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kowal$ki</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP"><span class="nav-number">1.</span> <span class="nav-text">HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-请求方法"><span class="nav-number">1.1.</span> <span class="nav-text">HTTP 请求方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见状态码"><span class="nav-number">1.2.</span> <span class="nav-text">常见状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#头部常见字段"><span class="nav-number">1.3.</span> <span class="nav-text">头部常见字段</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#跨域（jsonp-postMessage-cors-用服务器-比如-node-转发请求和响应）"><span class="nav-number">2.</span> <span class="nav-text">跨域（jsonp, postMessage, cors, 用服务器(比如 node)转发请求和响应）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#跨域有哪些常见的解决方式"><span class="nav-number">2.1.</span> <span class="nav-text">跨域有哪些常见的解决方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS-跨网站指令码-Cross-site-scripting"><span class="nav-number">2.2.</span> <span class="nav-text">XSS  跨网站指令码 Cross-site scripting</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF-跨站请求伪造-Cross-site-request-forgery"><span class="nav-number">2.3.</span> <span class="nav-text">CSRF 跨站请求伪造  Cross-site request forgery</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window-name"><span class="nav-number">2.4.</span> <span class="nav-text">window.name</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网址组成（四部分）"><span class="nav-number">2.5.</span> <span class="nav-text">网址组成（四部分）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#端口是什么？"><span class="nav-number">2.6.</span> <span class="nav-text">端口是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP协议"><span class="nav-number">2.7.</span> <span class="nav-text">HTTP协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从输入-URL-到页面加载完成的过程"><span class="nav-number">2.8.</span> <span class="nav-text">从输入 URL 到页面加载完成的过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ajax-过程："><span class="nav-number">2.9.</span> <span class="nav-text">Ajax 过程：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件冒泡-事件委托"><span class="nav-number">2.10.</span> <span class="nav-text">事件冒泡, 事件委托</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件委托"><span class="nav-number">2.11.</span> <span class="nav-text">事件委托</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能优化"><span class="nav-number">2.12.</span> <span class="nav-text">性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优化原则和方向"><span class="nav-number">2.12.1.</span> <span class="nav-text">优化原则和方向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#减少页面体积，提升网络加载"><span class="nav-number">2.12.2.</span> <span class="nav-text">减少页面体积，提升网络加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化页面渲染"><span class="nav-number">2.12.3.</span> <span class="nav-text">优化页面渲染</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kowal$ki</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v6.6.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.6.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.6.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

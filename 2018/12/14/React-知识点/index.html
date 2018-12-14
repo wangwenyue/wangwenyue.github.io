@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="ReactReact 的基础原则 React 界面完全由数据驱动； React 中一切都是组件； props 是 React 组件之间通讯的基本方式。  1UI = f(data) 等号左边的 UI 代表最终画出来的界面；等号右边的 f 是一个函数，也就是我们写的 React 相关代码；data 就是数据，在 React 中，data 可以是 state 或者 props。 组件：React 世界">
+<meta name="keywords" content="面试,react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React 知识点">
+<meta property="og:url" content="http://yoursite.com/2018/12/14/React-知识点/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ReactReact 的基础原则 React 界面完全由数据驱动； React 中一切都是组件； props 是 React 组件之间通讯的基本方式。  1UI = f(data) 等号左边的 UI 代表最终画出来的界面；等号右边的 f 是一个函数，也就是我们写的 React 相关代码；data 就是数据，在 React 中，data 可以是 state 或者 props。 组件：React 世界">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://raw.githubusercontent.com/wangwenyue/Pic-bed/master/react_msg_props.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wangwenyue/Pic-bed/master/before_16_3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wangwenyue/Pic-bed/master/after_16_3.png">
+<meta property="og:updated_time" content="2018-12-14T02:47:20.956Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React 知识点">
+<meta name="twitter:description" content="ReactReact 的基础原则 React 界面完全由数据驱动； React 中一切都是组件； props 是 React 组件之间通讯的基本方式。  1UI = f(data) 等号左边的 UI 代表最终画出来的界面；等号右边的 f 是一个函数，也就是我们写的 React 相关代码；data 就是数据，在 React 中，data 可以是 state 或者 props。 组件：React 世界">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wangwenyue/Pic-bed/master/react_msg_props.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/14/React-知识点/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>React 知识点 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion .logo-line-before i { left: initial; }
+    .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/React-知识点/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kowal$ki">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">React 知识点
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-14 10:44:49 / Modified: 10:47:20" itemprop="dateCreated datePublished" datetime="2018-12-14T10:44:49+08:00">2018-12-14</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="React"><a href="#React" class="headerlink" title="React"></a>React</h1><h2 id="React-的基础原则"><a href="#React-的基础原则" class="headerlink" title="React 的基础原则"></a>React 的基础原则</h2><ol>
+<li>React 界面完全由数据驱动；</li>
+<li>React 中一切都是组件；</li>
+<li><code>props</code> 是 React 组件之间通讯的基本方式。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UI = f(data)</span><br></pre></td></tr></table></figure>
+<p>等号左边的 UI 代表最终画出来的界面；等号右边的 f 是一个函数，也就是我们写的 React 相关代码；data 就是数据，在 React 中，data 可以是 <code>state</code> 或者 <code>props</code>。</p>
+<h2 id="组件：React-世界的一等公民"><a href="#组件：React-世界的一等公民" class="headerlink" title="组件：React 世界的一等公民"></a>组件：React 世界的一等公民</h2><ol>
+<li>用户界面就是组件；</li>
+<li>组件可以嵌套包装组成复杂功能；</li>
+<li>组件可以用来实现副作用。</li>
+</ol>
+<p>在 React 中，一个组件可以是一个类，也可以是一个函数，这取决于这个组件是否有自己的状态。</p>
+<h2 id="React-组件设计原则"><a href="#React-组件设计原则" class="headerlink" title="React 组件设计原则"></a>React 组件设计原则</h2><ol>
+<li>保持接口小，<code>props</code> 数量要少；</li>
+<li>根据数据边界来划分组件，充分利用组合（composition）；</li>
+<li>把 <code>state</code> 往上层组件提取，让下层组件只需要实现为纯函数。</li>
+</ol>
+<h2 id="重用组件逻辑的方式"><a href="#重用组件逻辑的方式" class="headerlink" title="重用组件逻辑的方式"></a>重用组件逻辑的方式</h2><h3 id="高阶组件"><a href="#高阶组件" class="headerlink" title="高阶组件"></a>高阶组件</h3><p>在开发 React 组件过程中，很容易发现这样一种现象，某些功能是多个组件通用的，如果每个组件都重复实现这样的逻辑，肯定十分浪费，而且违反了“不要重复自己”（DRY，Don’t Repeat Yourself)的编码原则，我们肯定想要把这部分共用逻辑提取出来重用。</p>
+<p>我们说过，在 React 的世界里，组件是第一公民，首先想到的是当然是把共用逻辑提取为一个 React 组件。不过，有些情况下，这些共用逻辑还没法成为一个独立组件，换句话说，这些共用逻辑单独无法使用，它们只是对其他组件的功能加强。</p>
+<p>举个例子，对于很多网站应用，有些模块都需要在用户已经登录的情况下才显示。比如，对于一个电商类网站，“退出登录”按钮、“购物车”这些模块，就只有用户登录之后才显示，对应这些模块的 React 组件如果连“只有在登录时才显示”的功能都重复实现，那就浪费了。</p>
+<p>这时候，我们就可以利用“高阶组件（HoC）”这种模式来解决问题。</p>
+<h3 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h3><p>render props 其实就是 React 世界中的“依赖注入”（Dependency Injection)。</p>
+<p>所谓依赖注入，指的是解决这样一个问题：逻辑 A 依赖于逻辑 B，如果让 A 直接依赖于 B，当然可行，但是 A 就没法做得通用了。依赖注入就是把 B 的逻辑以函数形式传递给 A，A 和 B 之间只需要对这个函数接口达成一致就行，如此一来，再来一个逻辑 C，也可以用一样的方法重用逻辑 A。</p>
+<h3 id="render-props-和高阶组件的比较"><a href="#render-props-和高阶组件的比较" class="headerlink" title="render props 和高阶组件的比较"></a>render props 和高阶组件的比较</h3><p>当需要重用 React 组件的逻辑时，建议首先看这个功能是否可以抽象为一个简单的组件；如果行不通的话，考虑是否可以应用 render props 模式；再不行的话，才考虑应用高阶组件模式。</p>
+<h2 id="提供者模式"><a href="#提供者模式" class="headerlink" title="提供者模式"></a>提供者模式</h2><p>在 React 中，<code>props</code> 是组件之间通讯的主要手段，但是，有一种场景单纯靠 <code>props</code> 来通讯是不恰当的，那就是两个组件之间间隔着多层其他组件，下面是一个简单的组件树示例图:</p>
+<p><img src="https://raw.githubusercontent.com/wangwenyue/Pic-bed/master/react_msg_props.png" alt="react_msg_props.png"></p>
+<p>在上图中，组件 <code>A</code> 需要传递信息给组件 <code>X</code>，如果通过 <code>props</code> 的话，那么从顶部的组件 <code>A</code> 开始，要把 <code>props</code> 传递给组件 <code>B</code>，然后组件 <code>B</code> 传递给组件 <code>D</code>，最后组件 <code>D</code> 再传递给组件 <code>X</code>。</p>
+<p>其实组件 <code>B</code> 和组件 <code>D</code> 完全用不上这些 <code>props</code>，但是又被迫传递这些 <code>props</code>，这明显不合理，要知道组件树的结构会变化的，将来如果组件 <code>B</code> 和组件 <code>D</code> 之间再插入一层新的组件，这个组件也需要传递这个 <code>props</code>，这就麻烦无比。</p>
+<p>可见，对于跨级的信息传递，我们需要一个更好的方法。</p>
+<p>在 React 中，解决这个问题应用的就是“提供者模式”。</p>
+<h2 id="组件状态"><a href="#组件状态" class="headerlink" title="组件状态"></a>组件状态</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UI = f(data)</span><br></pre></td></tr></table></figure>
+<p>f 的参数 data，除了 <code>props</code>，就是 <code>state</code>。<code>props</code> 是组件外传递进来的数据，<code>state</code> 代表的就是 React 组件的内部状态。</p>
+<p>对于 React 组件而言，数据分为两种：</p>
+<ol>
+<li><code>props</code></li>
+<li><code>state</code></li>
+</ol>
+<p>二者的区别显而易见，简单说就是，<code>props</code> 是外部传给组件的数据，而 <code>state</code> 是组件自己维护的数据，对外部是不可见的。</p>
+<p>所以，判断某个数据以 <code>props</code> 方式存在，还是以 <code>state</code> 方式存在，并不难，只需要判断这个状态是否是组件内部状态。</p>
+<p>判断一个数据应该放在哪里，用下面的原则：</p>
+<ol>
+<li>如果数据由外部传入，放在 <code>props</code> 中；</li>
+<li>如果是组件内部状态，是否这个状态更改应该立刻引发一次组件重新渲染？如果是，放在 <code>state</code> 中；不是，放在成员变量中。</li>
+</ol>
+<h2 id="React-的未来"><a href="#React-的未来" class="headerlink" title="React 的未来"></a>React 的未来</h2><h3 id="同步渲染的问题"><a href="#同步渲染的问题" class="headerlink" title="同步渲染的问题"></a>同步渲染的问题</h3><p>React 最初的设计，整个渲染过程都是同步的。同步的意思是，当一个组件开始渲染之后，就必须一口气渲染完，不能中断，对于特别庞大的组件树，这个渲染过程会很耗时，而且，这种同步处理，也会导致我们的代码比较麻烦。</p>
+<p>假设有一个超大的 React 组件树结构，有 1000 个组件，每个组件平均使用 1 毫秒，那么，要做一次完整的渲染就要花费 1000 毫秒也就是 1 秒钟，然而 JavaScript 运行环境是单线程的，也就是说，React 用同步渲染方式，渲染最根部组件的时候，会同步引发渲染子组件，再同步渲染子组件的子组件……最后完成整个组件树。在这 1 秒钟内，同步渲染霸占 JavaScript 唯一的线程，其他的操作什么都做不了，在这 1 秒钟内，如果用户要点击什么按钮，或者在某个输入框里面按键，都不会看到立即的界面反应，这也就是俗话说的“卡顿”。</p>
+<p>在同步渲染下，要解决“卡顿”的问题，只能是尽量缩小组件树的大小，以此缩短渲染时间，但是，应用的规模总是在增大的，不是说缩小就能缩小的，虽然我们利用定义 <code>shouldComponentUpdate</code> 的方法可以减少不必要的渲染，但是这也无法从根本上解决大量同步渲染带来的“卡顿”问题。</p>
+<h3 id="异步渲染"><a href="#异步渲染" class="headerlink" title="异步渲染"></a>异步渲染</h3><p><code>React Fiber</code> 引入了异步渲染，有了异步渲染之后，React 组件的渲染过程是分时间片的，不是一口气从头到尾把子组件全部渲染完，而是每个时间片渲染一点，然后每个时间片的间隔都可去看看有没有更紧急的任务（比如用户按键），如果有，就去处理紧急任务，如果没有那就继续照常渲染。</p>
+<p><code>React v16.3</code> 之前的完整的生命周期函数图：</p>
+<p><img src="https://raw.githubusercontent.com/wangwenyue/Pic-bed/master/before_16_3.png" alt="before_16_3.png"></p>
+<p>为什么不在 <code>componentWillMount</code> 里去做 <code>AJAX</code>？<code>componentWillMount</code> 可是比 <code>componentDidMount</code> 更早调用啊，更早调用意味着更早返回结果，那样性能不是更高吗？</p>
+<p>首先，一个组件的 <code>componentWillMount</code> 比 <code>componentDidMount</code> 也早调用不了几微秒，性能没啥提高；而且，等到异步渲染开启的时候，<code>componentWillMount</code> 就可能被中途打断，中断之后渲染又要重做一遍，想一想，在 <code>componentWillMount</code> 中做 <code>AJAX</code> 调用，代码里看到只有调用一次，但是实际上可能调用 N 多次，这明显不合适。相反，若把 <code>AJAX</code> 放在 <code>componentDidMount</code>，因为 <code>componentDidMount</code> 在第二阶段，所以绝对不会多次重复调用，这才是 <code>AJAX</code> 合适的位置。</p>
+<p><code>React v16.3</code> 之后的完整的生命周期函数图：</p>
+<p><img src="https://raw.githubusercontent.com/wangwenyue/Pic-bed/master/after_16_3.png" alt="after_16_3.png"></p>
+<h3 id="Suspense-带来的异步操作革命"><a href="#Suspense-带来的异步操作革命" class="headerlink" title="Suspense 带来的异步操作革命"></a><code>Suspense</code> 带来的异步操作革命</h3><p><code>Suspense</code> 应用的场合就是异步数据处理，最常见的例子，就是通过 <code>AJAX</code> 从服务器获取数据，每一个 React 开发者都曾为这个问题纠结。</p>
+<p>如果用一句话概括 <code>Suspense</code> 的功用，那就是：<strong>用同步的代码来实现异步操作</strong>。</p>
+<h3 id="函数化的-Hooks"><a href="#函数化的-Hooks" class="headerlink" title="函数化的 Hooks"></a>函数化的 <code>Hooks</code></h3><p><strong><code>Hooks</code> 的目的，简而言之就是让开发者不需要再用 <code>class</code> 来实现组件。</strong></p>
+<p><code>useState</code> 只接受一个参数，也就是 <code>state</code> 的初始值，它返回一个只有两个元素的数组，第一个元素就是 <code>state</code> 的值，第二个元素是更新 <code>state</code> 的函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p><code>useEffect</code>，用于支持组件中增加副作用的支持。</p>
+<p><code>useEffect</code> 的参数是一个函数，组件每次渲染之后，都会调用这个函数参数，这样就达到了 <code>componentDidMount</code> 和 <code>componentDidUpdate</code> 一样的效果。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">   <span class="built_in">document</span>.title = <span class="string">`Count: <span class="subst">$&#123;<span class="keyword">this</span>.state.count&#125;</span>`</span></span><br><span class="line"> &#125;)</span><br></pre></td></tr></table></figure>
+<p>虽然本质上，依然是 <code>componentDidMount</code> 和 <code>componentDidUpdate</code> 两个生命周期被调用，但是现在我们关心的不是 <code>mount</code> 或者 <code>update</code> 过程，而是“after render”事件，<code>useEffect</code> 就是告诉组件在“渲染完”之后做点什么事。</p>
+<p>现在把 <code>componentDidMount</code> 和 <code>componentDidUpdate</code> 混在了一起，那假如某个场景下我只在 <code>mount</code> 时做事但 <code>update</code> 不做事，用 <code>useEffect</code> 不就不行了吗？</p>
+<p>其实，用一点小技巧就可以解决。<code>useEffect</code> 还支持第二个可选参数，只有同一 <code>useEffect</code> 的两次调用第二个参数不同时，第一个函数参数才会被调用，所以，如果想模拟 <code>componentDidMount</code>，只需要这样写：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 这里只有mount时才被调用，相当于componentDidMount</span></span><br><span class="line">&#125;, [<span class="number">123</span>])</span><br></pre></td></tr></table></figure>
+<p>在上面的代码中，<code>useEffect</code> 的第二个参数是 <code>[123]</code>，其实也可以是任何一个常数，因为它永远不变，所以 <code>useEffect</code> 只在 <code>mount</code> 时调用第一个函数参数一次，达到了 <code>componentDidMount</code> 一样的效果。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/14/Throttle_debounce/" rel="next" title="“节流”与“防抖”">
+                <i class="fa fa-chevron-left"></i> “节流”与“防抖”
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/14/CSS-知识点/" rel="prev" title="CSS 知识点">
+                CSS 知识点 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kowal$ki</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#React"><span class="nav-number">1.</span> <span class="nav-text">React</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#React-的基础原则"><span class="nav-number">1.1.</span> <span class="nav-text">React 的基础原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件：React-世界的一等公民"><span class="nav-number">1.2.</span> <span class="nav-text">组件：React 世界的一等公民</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React-组件设计原则"><span class="nav-number">1.3.</span> <span class="nav-text">React 组件设计原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重用组件逻辑的方式"><span class="nav-number">1.4.</span> <span class="nav-text">重用组件逻辑的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#高阶组件"><span class="nav-number">1.4.1.</span> <span class="nav-text">高阶组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖注入"><span class="nav-number">1.4.2.</span> <span class="nav-text">依赖注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#render-props-和高阶组件的比较"><span class="nav-number">1.4.3.</span> <span class="nav-text">render props 和高阶组件的比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提供者模式"><span class="nav-number">1.5.</span> <span class="nav-text">提供者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件状态"><span class="nav-number">1.6.</span> <span class="nav-text">组件状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React-的未来"><span class="nav-number">1.7.</span> <span class="nav-text">React 的未来</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#同步渲染的问题"><span class="nav-number">1.7.1.</span> <span class="nav-text">同步渲染的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步渲染"><span class="nav-number">1.7.2.</span> <span class="nav-text">异步渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Suspense-带来的异步操作革命"><span class="nav-number">1.7.3.</span> <span class="nav-text">Suspense 带来的异步操作革命</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数化的-Hooks"><span class="nav-number">1.7.4.</span> <span class="nav-text">函数化的 Hooks</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kowal$ki</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v6.6.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.6.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.6.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
