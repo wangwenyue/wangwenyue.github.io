@@ -104,18 +104,18 @@
 
 
 
-  <meta name="description" content="JavaScript值类型，引用类型 6大基本类型：String,  Boolean , Number,  Null, Undefined , Symbol, Symbol 用的比较少。 基本类型的数据存在栈内存上。   引用类型：Object 栈内存中保存了变量标识符和指向堆内存中该对象的指针。 堆内存保存了对象的值。    深浅拷贝的问题">
+  <meta name="description" content="JavaScript值类型，引用类型 6大基本类型：String,  Boolean , Number,  Null, Undefined , Symbol, Symbol 用的比较少。 基本类型的数据存在栈内存上。   引用类型：Object 栈内存中保存了变量标识符和指向堆内存中该对象的指针。 堆内存保存了对象的值。">
 <meta name="keywords" content="面试,js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript 知识点">
 <meta property="og:url" content="http://yoursite.com/2018/12/14/JavaScript-知识点/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="JavaScript值类型，引用类型 6大基本类型：String,  Boolean , Number,  Null, Undefined , Symbol, Symbol 用的比较少。 基本类型的数据存在栈内存上。   引用类型：Object 栈内存中保存了变量标识符和指向堆内存中该对象的指针。 堆内存保存了对象的值。    深浅拷贝的问题">
+<meta property="og:description" content="JavaScript值类型，引用类型 6大基本类型：String,  Boolean , Number,  Null, Undefined , Symbol, Symbol 用的比较少。 基本类型的数据存在栈内存上。   引用类型：Object 栈内存中保存了变量标识符和指向堆内存中该对象的指针。 堆内存保存了对象的值。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-17T11:08:01.601Z">
+<meta property="og:updated_time" content="2018-12-17T11:09:51.271Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript 知识点">
-<meta name="twitter:description" content="JavaScript值类型，引用类型 6大基本类型：String,  Boolean , Number,  Null, Undefined , Symbol, Symbol 用的比较少。 基本类型的数据存在栈内存上。   引用类型：Object 栈内存中保存了变量标识符和指向堆内存中该对象的指针。 堆内存保存了对象的值。    深浅拷贝的问题">
+<meta name="twitter:description" content="JavaScript值类型，引用类型 6大基本类型：String,  Boolean , Number,  Null, Undefined , Symbol, Symbol 用的比较少。 基本类型的数据存在栈内存上。   引用类型：Object 栈内存中保存了变量标识符和指向堆内存中该对象的指针。 堆内存保存了对象的值。">
 
 
 
@@ -407,7 +407,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-17 19:08:01" itemprop="dateModified" datetime="2018-12-17T19:08:01+08:00">2018-12-17</time>
+                <time title="Modified: 2018-12-17 19:09:51" itemprop="dateModified" datetime="2018-12-17T19:09:51+08:00">2018-12-17</time>
               
             
           </span>
@@ -451,8 +451,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="深浅拷贝的问题"><a href="#深浅拷贝的问题" class="headerlink" title="深浅拷贝的问题"></a>深浅拷贝的问题</h2><a id="more"></a>
-<p>解决问题的场景：</p>
+<a id="more"></a>
+<h2 id="深浅拷贝的问题"><a href="#深浅拷贝的问题" class="headerlink" title="深浅拷贝的问题"></a>深浅拷贝的问题</h2><p>解决问题的场景：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">    age: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> b = a</span><br><span class="line">a.age = <span class="number">2</span></span><br><span class="line"><span class="built_in">console</span>.log(b.age) <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
 <p>从上述例子中我们可以发现，如果给一个变量赋值一个对象，那么两者的值会是同一个引用，其中一方改变，另一方也会相应改变。<br>通常在开发中我们不希望出现这样的问题，我们可以使用浅拷贝来解决这个问题。<a href="https://www.zhihu.com/question/23031215" target="_blank" rel="noopener">相关链接</a></p>
 <h3 id="浅拷贝-shallow-copy"><a href="#浅拷贝-shallow-copy" class="headerlink" title="浅拷贝(shallow copy)"></a>浅拷贝(shallow copy)</h3><p>首先<code>深拷贝</code>和<code>浅拷贝</code>只针对像 <code>Object</code>, <code>Array</code> 这样的复杂对象的。<br>简单来说，浅复制只复制一层对象的属性，而深复制则递归复制了所有层级。<br><code>浅拷贝</code>一般用 <code>Object.assign</code> 或者扩展运算符 <code>...</code> 来解决。</p>
